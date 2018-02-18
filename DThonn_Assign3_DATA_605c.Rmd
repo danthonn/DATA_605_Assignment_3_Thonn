@@ -1,0 +1,203 @@
+---
+title: "DATA_605_Assignment_3_Thonn"
+file: DThonn_Assign3_DATA_605
+name: Daniel Thonn
+output:
+  html_document: default
+  pdf_document: default
+course: DATA 605 CUNY MSDA program
+---
+
+** DATA_605_Assignment_3_Thonn - Eigenvalues & Eigenvectors **
+
+http://rpubs.com/danthonn/361569
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+``````{r, echo=TRUE}
+#install.packages("matrixcalc")
+
+```
+
+** Problem Set 1 **
+
+1-1). What is the rank of matrix A?
+
+$A = \left[\begin{array}{rrrr} 1 & 2 & 3 & 4 \\ -1 & 0 & 1 & 3 \\ 0 & 1 & -2 & 1 \\ 5 & 4 & -2 & -3 \end{array} \right]$ 
+
+
+``````{r, echo=TRUE}
+
+library(matrixcalc)
+
+#create Matrix M1
+A <- matrix(data = c(1,2,3,4,-1,0,1,3,0,1,-2,1,5,4,-2,-3), nrow = 4, ncol = 4, byrow = TRUE)
+
+A
+
+matrix.rank(A)
+
+# Answer 1-1: the rank of A is 4
+
+# [1] 4
+
+```
+
+
+1-2).	Given an $m x n$ matrix where $m > n$, what can be the maximum rank? The minimum rank, assuming that the matrix is non-zero ? Maximum rank = $m$ (rows) Minimum rank = 1 (all other rows could be linearly dependent)
+
+Answer-1-2:
+
+Rank:
+
+The maximum number of linearly independent vectors in a matrix is equal to the number of non-zero rows in its row echelon matrix. Therefore, to find the rank of a matrix, we transform the matrix to its row echelon form and count the number of non-zero independent rows.
+
+View an example $m x n$ matrix
+$$\left[ {\begin{array}{rrrr} a & b & c\\ d & e & f\\ g & h & i\\ j & k & l\ \end{array} } \right]$$
+
+
+View in reduced form:
+$$\left[ {\begin{array}{rrrr} x1 & 0 & 0\\ 0 & x2 & 0\\ 0 & 0 & x3\\ 0 & 0 & x4\\ \end{array} } \right]$$
+
+Notice that the rows below the nth column become multiples of each other, and therefore can be eliminated.
+
+Therefor the minimum rank of an m x n matrix that is non-zero is 1. 
+
+The minimum rank is 1
+
+And the maximimum rank is m (where m is the number of rows)
+
+
+1-3). What is the rank of matrix $B$?
+
+Rank:
+
+The maximum number of linearly independent vectors in a matrix is equal to the number of non-zero rows in its row echelon matrix. Therefore, to find the rank of a matrix, we transform the matrix to its row echelon form and count the number of non-zero independent rows.
+
+
+$$ B = \begin{bmatrix}1 & 2 & 1 \\3 & 6 & 3 \\2 & 4 & 2 \end{bmatrix}$$
+
+row 2 is a multiple of row 1.  
+
+$$ B = \begin{bmatrix}3 & 6 & 3 \\3 & 6 & 3 \\2 & 4 & 2 \end{bmatrix}$$ 
+subtract row 1 from row 2.
+
+$$ B = \begin{bmatrix}1 & 2 & 1 \\0 & 0 & 0 \\2 & 4 & 2 \end{bmatrix}$$ 
+row 3 is a multiple of row 1.
+$$ B = \begin{bmatrix}2 & 4 & 2 \\0 & 0 & 0 \\2 & 4 & 2 \end{bmatrix}$$ 
+subtract row 1 from row 3.
+$$ B = \begin{bmatrix}1 & 2 & 1 \\0 & 0 & 0 \\0 & 0 & 0 \end{bmatrix}$$ 
+There is one independent row in this matrix.
+$$ Rank =1 $$
+
+
+1-3). What is the rank of matrix B?
+``````{r, echo=TRUE}
+B <- matrix(data = c(1,2,1,3,6,3,2,4,2), nrow = 3, ncol = 3, byrow = TRUE)
+B
+
+matrix.rank(B)
+
+# Answer 1-3: the rank of A is 1
+
+# [1] 1
+
+```
+
+** Problem Set 2 **
+
+Compute the eigenvalues and eigenvectors of the matrix A. You'll need to show your work. You'll need to write out the characteristic polynomial and show your solution.
+
+Eigenvalues:
+
+$$A = \begin{pmatrix} 1 & 2 & 3\\ 0 & 4 & 5 \\ 0 & 0 & 6 \end{pmatrix}$$
+
+$$ \lambda,I_3 = \begin{bmatrix}\lambda & 0 & 0 \\0 & \lambda & 0 \\0 & 0 & \lambda \end{bmatrix}$$ 
+
+
+$$\lambda I_3 - A = \begin{pmatrix} \lambda -1 & -2 & -3\\ 0 & \lambda - 4 & -5 \\ 0 & 0 & \lambda -6 \end{pmatrix}$$
+
+$$det ( \lambda I_3 -A ) = 0$$
+$$(\lambda-6)(\lambda-4)(\lambda-1)-(-2)(0) +-3(0)$$
+$$(\lambda-6)(\lambda-4)(\lambda-1) = 0$$
+
+$$\lambda = 6 , \lambda=4 , \lambda = 1$$
+
+characteristic polynomial = $$x^3 - 9x^2 +24x - 16$$
+
+Eigenvectors:
+
+1). lambda = 1
+$$\lambda=1$$ 
+
+$$ \begin{bmatrix}\lambda - 1 & 2 & 3 \\0 & \lambda - 4 & 5 \\0 & 0 & \lambda - 6 \end{bmatrix}$$
+
+$$ \begin{bmatrix}0 & 2 & 3 \\0 & -3 & 5\\0 & 0 & -5\end{bmatrix},\begin{bmatrix}v_1 \\v_2 \\v_3\end{bmatrix}=0$$
+
+
+
+
+
+$$first, pivot = 0,x_1 = free,with, value=1$$
+
+$$-3 x_2 + 5 x_3 = 0 ,and, 5 x_3 = 0$$
+
+$$x_{\lambda=1},=\begin{bmatrix}1 \\0 \\0\end{bmatrix}$$
+
+
+2). lambda = 4
+$$ \begin{bmatrix}\lambda - 1 & 2 & 3 \\0 & \lambda - 4 & 5 \\0 & 0 & \lambda - 6 \end{bmatrix}$$
+
+$$\lambda=4$$ $$ \begin{bmatrix}3 & 2 & 3 \\0 & 0 & 5\\0 & 0 & -2\end{bmatrix},\begin{bmatrix}v_1 \\v_2 \\v_3\end{bmatrix}=0$$ 
+
+
+
+$$Second,pivot = 0,x_2=free, with value=1.$$ 
+
+$$3x_1+2x_2 +3x_3 = 0,and, 2x_3 = 0$$ 
+
+$$x_3=0,x_2=1,and,x_1=-2/3$$ 
+
+
+
+
+$$x_{\lambda=4},=\begin{bmatrix}-2/3\\1 \\0\end{bmatrix}$$
+
+3). lambda = 6
+
+$$ \begin{bmatrix}\lambda - 1 & 2 & 3 \\0 & \lambda - 4 & 5 \\0 & 0 & \lambda - 6 \end{bmatrix}$$
+
+
+$$\lambda=6$$ $$ \begin{bmatrix}5 & 2 & 3\\0 & 2 & 5\\0 & 0 & 0\end{bmatrix},\begin{bmatrix}v_1 \\v_2 \\v_3\end{bmatrix}=0$$
+
+
+$$Third,pivot =  0 ,x_3=free,with value=1.$$ 
+
+$$5x_1 +2x_2 +3x_3 = 0 ,and, 2x_1+5x_3 = 0$$ 
+
+$$x_3 = 1,x_2 = 2/5,and,x_1=-5/2$$
+
+$$x_{\lambda=6},=\begin{bmatrix}-5/2 \\2/5 \\1\end{bmatrix}$$
+
+
+
+
+``````{r, echo=TRUE}
+A <- matrix(data = c(1,0,0,2,4,0,3,5,6), nrow = 3, ncol = 3, byrow = FALSE)
+A
+
+EV1 <- eigen(A)
+
+EV1
+
+EV2 <- EV1$values
+
+EV2
+
+
+```
+
+
+**END**
